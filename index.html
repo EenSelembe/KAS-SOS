@@ -1,0 +1,2801 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kas Harian</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    margin:0;
+    background:#f1f3f5;
+    color:#222;
+}
+
+header{
+    background:#087f5b;
+    color:white;
+    padding:18px;
+    text-align:center;
+}
+
+header h2{
+    margin:0 0 5px;
+}
+
+.container{
+    max-width:650px;
+    margin:auto;
+    padding:15px;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.card{
+    background:white;
+    padding:16px;
+    border-radius:12px;
+    box-shadow:0 2px 7px rgba(0,0,0,.08);
+}
+
+.card h4{
+    margin:0 0 8px;
+    color:#777;
+}
+
+.nilai{
+    font-size:20px;
+    font-weight:bold;
+    color:#087f5b;
+}
+
+.menu{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:7px;
+    margin:15px 0;
+}
+
+.menu button{
+    border:none;
+    background:white;
+    padding:11px 3px;
+    border-radius:10px;
+    box-shadow:0 2px 7px rgba(0,0,0,.08);
+    font-size:12px;
+    cursor:pointer;
+}
+
+.menu button.active{
+    background:#087f5b;
+    color:white;
+}
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    margin:6px 0 12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+}
+
+textarea{
+    resize:none;
+    height:80px;
+}
+
+.btn{
+    width:100%;
+    border:none;
+    padding:12px;
+    border-radius:8px;
+    background:#087f5b;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn-masuk{
+    background:#16a34a;
+}
+
+.btn-keluar{
+    background:#dc2626;
+}
+
+.btn-laporan{
+    background:#2563eb;
+}
+
+.btn-bagikan{
+    background:#25D366;
+}
+
+.btn-edit{
+    background:#f59e0b;
+}
+
+.btn-hapus{
+    background:#dc2626;
+}
+
+.btn-kembali{
+    background:#6b7280;
+}
+
+.btn-nama{
+    background:#f59e0b;
+}
+
+.total-anggota{
+    background:#e6fcf5;
+    color:#087f5b;
+    padding:13px;
+    border-radius:10px;
+    margin-bottom:12px;
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.anggota-item{
+    background:white;
+    padding:14px;
+    margin-bottom:8px;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,.07);
+    cursor:pointer;
+}
+
+.nama{
+    font-weight:bold;
+    font-size:15px;
+}
+
+.nomor{
+    display:inline-block;
+    min-width:28px;
+    font-weight:bold;
+}
+
+.riwayat-item{
+    background:white;
+    padding:13px;
+    border-radius:9px;
+    margin-bottom:8px;
+    box-shadow:0 2px 5px rgba(0,0,0,.05);
+}
+
+.masuk{
+    color:#16a34a;
+}
+
+.keluar{
+    color:#dc2626;
+}
+
+.empty{
+    text-align:center;
+    padding:20px;
+    color:#777;
+}
+
+.back{
+    border:none;
+    background:#eee;
+    padding:9px 14px;
+    border-radius:7px;
+    margin-bottom:12px;
+    cursor:pointer;
+}
+
+.detail-box{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.detail-item{
+    background:#f8f9fa;
+    padding:12px;
+    border-radius:8px;
+}
+
+.detail-item.full{
+    grid-column:1/3;
+}
+
+.action-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:8px;
+}
+
+.action-row button{
+    border:none;
+    padding:10px;
+    border-radius:7px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.action-row-3{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:15px;
+}
+
+.action-row-3 button{
+    border:none;
+    padding:11px;
+    border-radius:8px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.edit-payment{
+    background:#fff8e1;
+    padding:12px;
+    border-radius:10px;
+    margin-top:8px;
+}
+
+.laporan-box{
+    text-align:center;
+}
+
+.laporan-icon{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.laporan-info{
+    background:#f8f9fa;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    text-align:left;
+}
+
+.laporan-info b{
+    font-size:18px;
+}
+
+.peringatan{
+    background:#fff3cd;
+    color:#856404;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:12px;
+    font-size:13px;
+}
+
+@media(max-width:430px){
+
+    .menu{
+        grid-template-columns:repeat(5,1fr);
+    }
+
+    .menu button{
+        font-size:10px;
+        padding:10px 1px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>💰 KAS HARIAN</h2>
+    <small>Kas Rp1.000 Per Hari</small>
+</header>
+
+<div class="container">
+
+<!-- DASHBOARD -->
+
+<div class="dashboard">
+
+    <div class="card">
+        <h4>💵 Saldo Kas</h4>
+        <div class="nilai" id="saldo">Rp 0</div>
+    </div>
+
+    <div class="card">
+        <h4>🟢 Total Kas Masuk</h4>
+        <div class="nilai" id="totalMasuk">Rp 0</div>
+    </div>
+
+    <div class="card">
+        <h4>🔴 Pengeluaran</h4>
+        <div class="nilai" id="totalKeluar">Rp 0</div>
+    </div>
+
+    <div class="card">
+        <h4>👥 Jumlah Anggota</h4>
+        <div class="nilai" id="jumlahAnggota">49</div>
+    </div>
+
+</div>
+
+
+<!-- MENU -->
+
+<div class="menu">
+
+    <button class="active"
+        onclick="bukaMenu('anggota',this)">
+        👥<br>Anggota
+    </button>
+
+    <button onclick="bukaMenu('bayar',this)">
+        💵<br>Bayar
+    </button>
+
+    <button onclick="bukaMenu('kas',this)">
+        💰<br>Kas
+    </button>
+
+    <button onclick="bukaMenu('riwayat',this)">
+        📋<br>Riwayat
+    </button>
+
+    <button onclick="bukaMenu('laporan',this)">
+        📊<br>Laporan
+    </button>
+
+</div>
+
+
+<!-- ANGGOTA -->
+
+<div id="anggota" class="section active">
+
+    <div class="card">
+
+        <div class="total-anggota">
+            👥 TOTAL ANGGOTA:
+            <span id="totalAnggotaText">49</span>
+        </div>
+
+        <button
+            class="btn btn-bagikan"
+            onclick="bagikanAnggota()"
+            style="margin-bottom:15px;">
+
+            📲 BAGIKAN DAFTAR ANGGOTA
+
+        </button>
+
+        <div id="daftarAnggota"></div>
+
+    </div>
+
+    <br>
+
+    <div class="card">
+
+        <h3>➕ Tambah Anggota</h3>
+
+        <input
+            type="text"
+            id="namaAnggota"
+            placeholder="Nama anggota">
+
+        <button
+            class="btn"
+            onclick="tambahAnggota()">
+
+            TAMBAH ANGGOTA
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- BAYAR -->
+
+<div id="bayar" class="section">
+
+    <div class="card">
+
+        <h3>💵 Pembayaran Kas Harian</h3>
+
+        <label>Anggota</label>
+
+        <select id="pilihAnggota">
+            <option value="">-- Pilih Anggota --</option>
+        </select>
+
+        <label>Nominal</label>
+
+        <input
+            type="text"
+            id="nominalBayar"
+            placeholder="Contoh: 10.000"
+            inputmode="numeric"
+            oninput="formatNominal(this)">
+
+        <p>
+            <small>
+                💡 Rp1.000 = 1 hari
+            </small>
+        </p>
+
+        <button
+            class="btn"
+            onclick="bayarKas()">
+
+            💾 SIMPAN PEMBAYARAN
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- KAS -->
+
+<div id="kas" class="section">
+
+    <div class="card">
+
+        <h3>🟢 Kas Masuk</h3>
+
+        <label>Nominal</label>
+
+        <input
+            type="text"
+            id="nominalMasuk"
+            placeholder="Contoh: 50.000"
+            inputmode="numeric"
+            oninput="formatNominal(this)">
+
+        <label>Keterangan</label>
+
+        <textarea
+            id="keteranganMasuk"
+            placeholder="Contoh: Sumbangan anggota"></textarea>
+
+        <button
+            class="btn btn-masuk"
+            onclick="kasMasuk()">
+
+            + TAMBAH KAS MASUK
+
+        </button>
+
+    </div>
+
+    <br>
+
+    <div class="card">
+
+        <h3>🔴 Pengeluaran</h3>
+
+        <label>Nominal</label>
+
+        <input
+            type="text"
+            id="nominalKeluar"
+            placeholder="Contoh: 25.000"
+            inputmode="numeric"
+            oninput="formatNominal(this)">
+
+        <label>Keterangan</label>
+
+        <textarea
+            id="keteranganKeluar"
+            placeholder="MasukannKeterangan"></textarea>
+
+        <button
+            class="btn btn-keluar"
+            onclick="kasKeluar()">
+
+            - TAMBAH PENGELUARAN
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- DETAIL ANGGOTA -->
+
+<div id="detail" class="section">
+
+    <button
+        class="back"
+        onclick="kembaliAnggota()">
+
+        ← Kembali
+
+    </button>
+
+    <div class="card">
+
+        <h3 id="detailNama">Nama</h3>
+
+        <div class="detail-box">
+
+            <div class="detail-item">
+                📅 Sisa Hari
+                <br>
+                <b id="detailHari">0</b>
+            </div>
+
+            <div class="detail-item">
+                💵 Total Dibayar
+                <br>
+                <b id="detailTotal">Rp 0</b>
+            </div>
+
+            <div class="detail-item full">
+                📅 NextPay
+                <br>
+                <b id="detailTanggal">-</b>
+            </div>
+
+        </div>
+
+        <!-- EDIT / HAPUS ANGGOTA -->
+
+        <div class="action-row-3">
+
+            <button
+                class="btn-nama"
+                onclick="editNamaAnggota()">
+
+                ✏️ EDIT NAMA
+
+            </button>
+
+            <button
+                class="btn-hapus"
+                onclick="hapusAnggota()">
+
+                🗑️ HAPUS ANGGOTA
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="card">
+
+        <h3>📋 Riwayat Pembayaran</h3>
+
+        <div id="detailRiwayat"></div>
+
+    </div>
+
+</div>
+
+
+<!-- EDIT PEMBAYARAN -->
+
+<div id="editPembayaran" class="section">
+
+    <button
+        class="back"
+        onclick="kembaliDetail()">
+
+        ← Kembali
+
+    </button>
+
+    <div class="card">
+
+        <h3>✏️ Edit Pembayaran</h3>
+
+        <p>
+            Anggota:
+            <b id="editNamaAnggota"></b>
+        </p>
+
+        <label>Jumlah Hari</label>
+
+        <input
+            type="number"
+            id="editJumlahHari"
+            min="1"
+            placeholder="Contoh: 10">
+
+        <div class="edit-payment">
+
+            💵 Nominal otomatis:
+
+            <br>
+
+            <b id="editNominal">
+                Rp 0
+            </b>
+
+        </div>
+
+        <br>
+
+        <button
+            class="btn btn-edit"
+            onclick="simpanEditPembayaran()">
+
+            💾 SIMPAN PERUBAHAN
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- RIWAYAT -->
+
+<div id="riwayat" class="section">
+
+    <div class="card">
+
+        <h3>📋 Riwayat Kas</h3>
+
+        <div id="semuaRiwayat"></div>
+
+    </div>
+
+</div>
+
+
+<!-- LAPORAN -->
+
+<div id="laporan" class="section">
+
+    <div class="card laporan-box">
+
+        <div class="laporan-icon">
+            📊
+        </div>
+
+        <h3>LAPORAN KAS</h3>
+
+        <div class="laporan-info">
+
+            💰 Kas Anggota
+
+            <br>
+
+            <b id="laporanAnggota">
+                Rp 0
+            </b>
+
+        </div>
+
+        <div class="laporan-info">
+
+            🟢 Kas Masuk Manual
+
+            <br>
+
+            <b id="laporanMasuk">
+                Rp 0
+            </b>
+
+        </div>
+
+        <div class="laporan-info">
+
+            🔴 Pengeluaran
+
+            <br>
+
+            <b id="laporanKeluar">
+                Rp 0
+            </b>
+
+        </div>
+
+        <div class="laporan-info">
+
+            💵 Saldo Terbaru
+
+            <br>
+
+            <b id="laporanSaldo">
+                Rp 0
+            </b>
+
+        </div>
+
+        <br>
+
+        <button
+            class="btn btn-laporan"
+            onclick="bagikanLaporan()">
+
+            📊 BAGIKAN LAPORAN
+
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   DATA 49 ANGGOTA
+===================================================== */
+
+const anggotaAwal = [
+
+{id:1,nama:"Son_Style",tanggalTempo:"2026-08-18"},
+{id:2,nama:"Een_Style",tanggalTempo:"2026-08-14"},
+{id:3,nama:"Meppoodeajax_Style",tanggalTempo:"2026-08-17"},
+{id:4,nama:"Babybellens_Style",tanggalTempo:"2026-08-12"},
+{id:5,nama:"Seraphine_Style",tanggalTempo:"2026-08-18"},
+{id:6,nama:"Rey_Alexander",tanggalTempo:"2026-08-15"},
+{id:7,nama:"Kray_Acman",tanggalTempo:"2026-10-01"},
+{id:8,nama:"Piraa_Anjayyy",tanggalTempo:"2026-08-21"},
+{id:9,nama:"Kevin_Julioi",tanggalTempo:"2026-08-17"},
+{id:10,nama:"Gregorius_Yantomaja",tanggalTempo:"2026-08-17"},
+{id:11,nama:"Zul_One",tanggalTempo:"2026-08-13"},
+{id:12,nama:"Ezaaa_Style",tanggalTempo:"2026-08-13"},
+{id:13,nama:"Victor_Camp",tanggalTempo:"2026-08-13"},
+{id:14,nama:"Queen_Style",tanggalTempo:"2026-08-14"},
+{id:15,nama:"Bambang_Sugeni",tanggalTempo:"2026-08-17"},
+{id:16,nama:"Skyler_Style",tanggalTempo:"2026-08-27"},
+{id:17,nama:"Biancaa_Style",tanggalTempo:"2026-08-15"},
+{id:18,nama:"Kyliv_Son",tanggalTempo:"2026-08-10"},
+{id:19,nama:"Jennifer_Kim",tanggalTempo:"2026-08-12"},
+{id:20,nama:"Samuel_Bandito",tanggalTempo:"2026-08-12"},
+{id:21,nama:"Chipay_Djfm",tanggalTempo:"2026-08-14"},
+{id:22,nama:"Satria_Rizt",tanggalTempo:"2026-08-12"},
+{id:23,nama:"Tony_Montana",tanggalTempo:"2026-08-17"},
+{id:24,nama:"Kiel_Antari",tanggalTempo:"2026-08-13"},
+{id:25,nama:"Keii_Cuww",tanggalTempo:"2026-08-02"},
+{id:26,nama:"Hanzz_Skandal",tanggalTempo:"2026-08-12"},
+{id:27,nama:"Franssisko_Messi",tanggalTempo:"2026-08-16"},
+{id:28,nama:"Leon_Brosen",tanggalTempo:"2026-07-31"},
+{id:29,nama:"Yanzz_Hopkinss",tanggalTempo:"2026-08-07"},
+{id:30,nama:"Evelyn_Cavindish",tanggalTempo:"2026-08-12"},
+{id:31,nama:"Ajo_Rmc",tanggalTempo:"2026-08-10"},
+{id:32,nama:"Hendrick_Calvaro",tanggalTempo:"2026-08-09"},
+{id:33,nama:"Venzz_Bdough",tanggalTempo:"2026-08-10"},
+{id:34,nama:"Riel_Aja",tanggalTempo:"2026-08-13"},
+{id:35,nama:"Janger_Style",tanggalTempo:"2026-08-02"},
+{id:36,nama:"Twilight_Void",tanggalTempo:"2026-08-12"},
+{id:37,nama:"Arlott_Flame",tanggalTempo:"2026-08-12"},
+{id:38,nama:"Murayama_Kazeo",tanggalTempo:"2026-08-13"},
+{id:39,nama:"Pinjamdulu_Pakdol",tanggalTempo:"2026-08-04"},
+{id:40,nama:"Ell_Gatot",tanggalTempo:"2026-08-15"},
+{id:41,nama:"Xyrill_Nkl",tanggalTempo:"2026-08-14"},
+{id:42,nama:"Augustoraul_Rodriguest",tanggalTempo:"2026-08-15"},
+{id:43,nama:"Patricktiago_Fernandes",tanggalTempo:"2026-08-14"},
+{id:44,nama:"Babijahannam_jahannam",tanggalTempo:"2026-08-12"},
+{id:45,nama:"Kenzi_Carleon",tanggalTempo:"2026-08-12"},
+{id:46,nama:"Memet_Gengater",tanggalTempo:"2026-08-12"},
+{id:47,nama:"Carlos_Reno",tanggalTempo:"2026-08-18"},
+{id:48,nama:"Senri_defans",tanggalTempo:"2026-08-12"},
+{id:49,nama:"Patrickigor_Silvestric",tanggalTempo:"2026-08-12"}
+
+];
+
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+const DATA_VERSION =
+"KAS_49_ANGGOTA_V4";
+
+let anggota;
+
+if(
+    localStorage.getItem("kasDataVersion")
+    !== DATA_VERSION
+){
+
+    anggota =
+        JSON.parse(
+            JSON.stringify(anggotaAwal)
+        );
+
+    localStorage.setItem(
+        "kasAnggota",
+        JSON.stringify(anggota)
+    );
+
+    localStorage.setItem(
+        "kasDataVersion",
+        DATA_VERSION
+    );
+
+}else{
+
+    anggota =
+        JSON.parse(
+            localStorage.getItem(
+                "kasAnggota"
+            )
+        ) || [];
+
+}
+
+
+let transaksi =
+    JSON.parse(
+        localStorage.getItem(
+            "kasTransaksi"
+        )
+    ) || [];
+
+
+let anggotaDetailAktif = null;
+let transaksiEditId = null;
+
+
+/* =====================================================
+   TANGGAL
+===================================================== */
+
+function tanggalHariIni(){
+
+    let d = new Date();
+
+    return new Date(
+        d.getFullYear(),
+        d.getMonth(),
+        d.getDate()
+    );
+
+}
+
+
+function tanggalISO(date){
+
+    let y =
+        date.getFullYear();
+
+    let m =
+        String(
+            date.getMonth()+1
+        ).padStart(2,"0");
+
+    let d =
+        String(
+            date.getDate()
+        ).padStart(2,"0");
+
+    return y+"-"+m+"-"+d;
+
+}
+
+
+function formatTanggal(tanggal){
+
+    if(!tanggal)
+        return "-";
+
+    let p =
+        tanggal.split("-");
+
+    return p[2]+"/"+p[1]+"/"+p[0];
+
+}
+
+
+function hitungSelisihHari(tempo){
+
+    let hariIni =
+        tanggalHariIni();
+
+    let t =
+        new Date(
+            tempo+"T00:00:00"
+        );
+
+    return Math.round(
+        (t-hariIni)/
+        (1000*60*60*24)
+    );
+
+}
+
+
+/* =====================================================
+   RUPIAH
+===================================================== */
+
+function formatRupiah(angka){
+
+    return "Rp "+
+        Number(
+            angka||0
+        ).toLocaleString(
+            "id-ID"
+        );
+
+}
+
+
+function formatNominal(input){
+
+    let angka =
+        input.value.replace(
+            /\D/g,
+            ""
+        );
+
+    input.value =
+        angka
+        ?
+        Number(
+            angka
+        ).toLocaleString(
+            "id-ID"
+        )
+        :
+        "";
+
+}
+
+
+/* =====================================================
+   SIMPAN
+===================================================== */
+
+function simpanData(){
+
+    localStorage.setItem(
+        "kasAnggota",
+        JSON.stringify(anggota)
+    );
+
+    localStorage.setItem(
+        "kasTransaksi",
+        JSON.stringify(transaksi)
+    );
+
+}
+
+
+/* =====================================================
+   CARI ANGGOTA
+===================================================== */
+
+function cariAnggota(id){
+
+    return anggota.find(
+        a =>
+            a.id == id
+    );
+
+}
+
+
+/* =====================================================
+   TAMPILKAN ANGGOTA
+===================================================== */
+
+function tampilkanAnggota(){
+
+    let box =
+        document.getElementById(
+            "daftarAnggota"
+        );
+
+    box.innerHTML="";
+
+    anggota.forEach(
+        (a,index)=>{
+
+            let hari =
+                hitungSelisihHari(
+                    a.tanggalTempo
+                );
+
+            let icon;
+
+            if(hari>0){
+
+                icon="🟢";
+
+            }else if(hari===0){
+
+                icon="🟡";
+
+            }else{
+
+                icon="🔴";
+
+            }
+
+            let nomor =
+                String(index+1)
+                .padStart(2,"0");
+
+            box.innerHTML += `
+
+            <div
+                class="anggota-item"
+                onclick="bukaDetail(${a.id})">
+
+                <div class="nama">
+
+                    <span class="nomor">
+                        ${nomor}.
+                    </span>
+
+                    ${icon}
+
+                    ${escapeHTML(a.nama)}
+
+                    /
+
+                    ${hari} hari
+
+                    /
+
+                    ${formatTanggal(
+                        a.tanggalTempo
+                    )}
+
+                </div>
+
+            </div>
+
+            `;
+
+        }
+    );
+
+    document.getElementById(
+        "jumlahAnggota"
+    ).textContent =
+        anggota.length;
+
+    document.getElementById(
+        "totalAnggotaText"
+    ).textContent =
+        anggota.length;
+
+}
+
+
+/* =====================================================
+   TAMBAH ANGGOTA
+===================================================== */
+
+function tambahAnggota(){
+
+    let input =
+        document.getElementById(
+            "namaAnggota"
+        );
+
+    let nama =
+        input.value.trim();
+
+    if(!nama){
+
+        alert(
+            "Masukkan nama anggota!"
+        );
+
+        return;
+    }
+
+    if(
+        anggota.some(
+            a =>
+                a.nama.toLowerCase()
+                ===
+                nama.toLowerCase()
+        )
+    ){
+
+        alert(
+            "Nama anggota sudah ada!"
+        );
+
+        return;
+    }
+
+    anggota.push({
+
+        id:Date.now(),
+
+        nama:nama,
+
+        tanggalTempo:
+            tanggalISO(
+                tanggalHariIni()
+            )
+
+    });
+
+    simpanData();
+
+    input.value="";
+
+    refreshSemua();
+
+    alert(
+        "Anggota berhasil ditambahkan!"
+    );
+
+}
+
+
+/* =====================================================
+   EDIT NAMA ANGGOTA
+===================================================== */
+
+function editNamaAnggota(){
+
+    let a =
+        cariAnggota(
+            anggotaDetailAktif
+        );
+
+    if(!a)
+        return;
+
+    let namaBaru =
+        prompt(
+            "Masukkan nama baru:",
+            a.nama
+        );
+
+    if(
+        namaBaru === null
+    )
+        return;
+
+    namaBaru =
+        namaBaru.trim();
+
+    if(!namaBaru){
+
+        alert(
+            "Nama tidak boleh kosong!"
+        );
+
+        return;
+    }
+
+    if(
+        anggota.some(
+            x =>
+                x.id !== a.id
+                &&
+                x.nama.toLowerCase()
+                ===
+                namaBaru.toLowerCase()
+        )
+    ){
+
+        alert(
+            "Nama tersebut sudah digunakan!"
+        );
+
+        return;
+    }
+
+    /*
+       HANYA nama yang diubah.
+       Nominal kas tidak disentuh.
+       Transaksi lama tetap tersimpan.
+    */
+
+    let namaLama =
+        a.nama;
+
+    a.nama =
+        namaBaru;
+
+    /*
+       Update nama pada transaksi
+       lama agar riwayat tampil
+       menggunakan nama terbaru.
+
+       Nominal tetap sama.
+    */
+
+    transaksi.forEach(
+        t=>{
+
+            if(
+                t.anggotaId ==
+                a.id
+                &&
+                t.sumber ===
+                "kas_harian"
+            ){
+
+                t.nama =
+                    namaBaru;
+
+            }
+
+        }
+    );
+
+    simpanData();
+
+    refreshSemua();
+
+    bukaDetail(
+        a.id
+    );
+
+    alert(
+        "Nama berhasil diubah.\n\n"+
+        "Kas anggota tetap aman."
+    );
+
+}
+
+
+/* =====================================================
+   HAPUS ANGGOTA
+===================================================== */
+
+function hapusAnggota(){
+
+    let a =
+        cariAnggota(
+            anggotaDetailAktif
+        );
+
+    if(!a)
+        return;
+
+    let transaksiAnggota =
+        transaksi.filter(
+            t =>
+                t.anggotaId ==
+                a.id
+                &&
+                t.sumber ===
+                "kas_harian"
+        );
+
+    let total =
+        transaksiAnggota.reduce(
+            (x,t)=>
+                x+
+                Number(
+                    t.nominal
+                ),
+            0
+        );
+
+    let yakin =
+        confirm(
+            "HAPUS ANGGOTA?\n\n"+
+            a.nama+
+            "\n\n"+
+            "Total kas yang sudah dibayar: "+
+            formatRupiah(total)+
+            "\n\n"+
+            "⚠️ Uang kas TIDAK akan dihapus.\n"+
+            "Transaksi pembayaran tetap tercatat.\n"+
+            "Saldo kas TIDAK akan berkurang.\n\n"+
+            "Lanjutkan?"
+        );
+
+    if(!yakin)
+        return;
+
+    /*
+       HANYA anggota yang dihapus.
+       TRANSAKSI TIDAK DIHAPUS.
+    */
+
+    anggota =
+        anggota.filter(
+            x =>
+                x.id != a.id
+        );
+
+    simpanData();
+
+    anggotaDetailAktif =
+        null;
+
+    refreshSemua();
+
+    bukaSection(
+        "anggota"
+    );
+
+    alert(
+        "Anggota berhasil dihapus.\n\n"+
+        "Riwayat pembayaran dan uang kas tetap tersimpan."
+    );
+
+}
+
+
+/* =====================================================
+   SELECT ANGGOTA
+===================================================== */
+
+function updateSelect(){
+
+    let select =
+        document.getElementById(
+            "pilihAnggota"
+        );
+
+    select.innerHTML =
+        `<option value="">
+            -- Pilih Anggota --
+        </option>`;
+
+    anggota.forEach(
+        (a,index)=>{
+
+            let nomor =
+                String(index+1)
+                .padStart(2,"0");
+
+            select.innerHTML += `
+
+            <option value="${a.id}">
+
+                ${nomor}.
+                ${escapeHTML(a.nama)}
+
+            </option>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   BAYAR KAS
+===================================================== */
+
+function bayarKas(){
+
+    let id =
+        Number(
+            document.getElementById(
+                "pilihAnggota"
+            ).value
+        );
+
+    let text =
+        document.getElementById(
+            "nominalBayar"
+        ).value;
+
+    let nominal =
+        Number(
+            text.replace(/\./g,"")
+        );
+
+    if(!id){
+
+        alert(
+            "Pilih anggota!"
+        );
+
+        return;
+    }
+
+    if(
+        !nominal ||
+        nominal<1000
+    ){
+
+        alert(
+            "Minimal Rp1.000!"
+        );
+
+        return;
+    }
+
+    if(
+        nominal%1000!==0
+    ){
+
+        alert(
+            "Nominal harus kelipatan Rp1.000!"
+        );
+
+        return;
+    }
+
+    let a =
+        cariAnggota(id);
+
+    let jumlahHari =
+        nominal/1000;
+
+    let hariIni =
+        tanggalHariIni();
+
+    let tempo =
+        new Date(
+            a.tanggalTempo+
+            "T00:00:00"
+        );
+
+    let mulai =
+        tempo < hariIni
+        ?
+        hariIni
+        :
+        tempo;
+
+    let tempoBaru =
+        new Date(mulai);
+
+    tempoBaru.setDate(
+        tempoBaru.getDate()
+        +
+        jumlahHari
+    );
+
+    /*
+       PEMBAYARAN MASUK
+       MENAMBAH SALDO KAS.
+    */
+
+    transaksi.push({
+
+        id:Date.now(),
+
+        jenis:"masuk",
+
+        sumber:"kas_harian",
+
+        anggotaId:id,
+
+        nama:a.nama,
+
+        nominal:nominal,
+
+        jumlahHari:jumlahHari,
+
+        tanggal:
+            tanggalISO(
+                hariIni
+            ),
+
+        keterangan:
+            "Kas anggota"
+
+    });
+
+    a.tanggalTempo =
+        tanggalISO(
+            tempoBaru
+        );
+
+    simpanData();
+
+    document.getElementById(
+        "nominalBayar"
+    ).value="";
+
+    document.getElementById(
+        "pilihAnggota"
+    ).value="";
+
+    refreshSemua();
+
+    alert(
+        "Pembayaran berhasil!\n\n"+
+        a.nama+
+        "\n"+
+        jumlahHari+
+        " hari"+
+        "\nNextPay: "+
+        formatTanggal(
+            a.tanggalTempo
+        )
+    );
+
+}
+
+
+/* =====================================================
+   DETAIL ANGGOTA
+===================================================== */
+
+function bukaDetail(id){
+
+    anggotaDetailAktif =
+        id;
+
+    let a =
+        cariAnggota(id);
+
+    if(!a)
+        return;
+
+    document.getElementById(
+        "detailNama"
+    ).textContent =
+        a.nama;
+
+    let data =
+        transaksi.filter(
+            t =>
+                t.sumber ===
+                "kas_harian"
+                &&
+                t.anggotaId == id
+        );
+
+    let total =
+        data.reduce(
+            (x,t)=>
+                x+
+                Number(
+                    t.nominal
+                ),
+            0
+        );
+
+    let hari =
+        hitungSelisihHari(
+            a.tanggalTempo
+        );
+
+    document.getElementById(
+        "detailHari"
+    ).textContent =
+        hari+" hari";
+
+    document.getElementById(
+        "detailTotal"
+    ).textContent =
+        formatRupiah(total);
+
+    document.getElementById(
+        "detailTanggal"
+    ).textContent =
+        formatTanggal(
+            a.tanggalTempo
+        );
+
+    let box =
+        document.getElementById(
+            "detailRiwayat"
+        );
+
+    box.innerHTML="";
+
+    if(!data.length){
+
+        box.innerHTML =
+            `<div class="empty">
+                Belum ada pembayaran
+            </div>`;
+
+    }else{
+
+        [...data]
+        .reverse()
+        .forEach(t=>{
+
+            box.innerHTML += `
+
+            <div class="riwayat-item">
+
+                <b class="masuk">
+
+                    +${formatRupiah(
+                        t.nominal
+                    )}
+
+                </b>
+
+                <br>
+
+                ${t.jumlahHari}
+                hari
+
+                <br>
+
+                <small>
+                    ${formatTanggal(
+                        t.tanggal
+                    )}
+                </small>
+
+                <div class="action-row">
+
+                    <button
+                        style="background:#f59e0b"
+                        onclick="event.stopPropagation();
+                        bukaEditPembayaran(${t.id})">
+
+                        ✏️ EDIT
+
+                    </button>
+
+                    <button
+                        style="background:#dc2626"
+                        onclick="event.stopPropagation();
+                        hapusPembayaran(${t.id})">
+
+                        🗑️ HAPUS
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        });
+
+    }
+
+    bukaSection(
+        "detail"
+    );
+
+}
+
+
+/* =====================================================
+   EDIT PEMBAYARAN
+===================================================== */
+
+function bukaEditPembayaran(id){
+
+    let t =
+        transaksi.find(
+            x =>
+                x.id == id
+        );
+
+    if(!t)
+        return;
+
+    transaksiEditId =
+        id;
+
+    document.getElementById(
+        "editNamaAnggota"
+    ).textContent =
+        t.nama;
+
+    document.getElementById(
+        "editJumlahHari"
+    ).value =
+        t.jumlahHari;
+
+    updateNominalEdit();
+
+    bukaSection(
+        "editPembayaran"
+    );
+
+}
+
+
+document.addEventListener(
+    "input",
+    function(e){
+
+        if(
+            e.target.id ===
+            "editJumlahHari"
+        ){
+
+            updateNominalEdit();
+
+        }
+
+    }
+);
+
+
+function updateNominalEdit(){
+
+    let hari =
+        Number(
+            document.getElementById(
+                "editJumlahHari"
+            ).value
+        ) || 0;
+
+    document.getElementById(
+        "editNominal"
+    ).textContent =
+        formatRupiah(
+            hari*1000
+        );
+
+}
+
+
+/* =====================================================
+   SIMPAN EDIT PEMBAYARAN
+===================================================== */
+
+function simpanEditPembayaran(){
+
+    let hari =
+        Number(
+            document.getElementById(
+                "editJumlahHari"
+            ).value
+        );
+
+    if(
+        !hari ||
+        hari<1
+    ){
+
+        alert(
+            "Jumlah hari harus lebih dari 0!"
+        );
+
+        return;
+    }
+
+    let t =
+        transaksi.find(
+            x =>
+                x.id ==
+                transaksiEditId
+        );
+
+    if(!t)
+        return;
+
+    let a =
+        cariAnggota(
+            t.anggotaId
+        );
+
+    if(!a)
+        return;
+
+    t.jumlahHari =
+        hari;
+
+    t.nominal =
+        hari*1000;
+
+    hitungUlangTempo(
+        a.id
+    );
+
+    simpanData();
+
+    transaksiEditId =
+        null;
+
+    refreshSemua();
+
+    bukaDetail(
+        a.id
+    );
+
+    alert(
+        "Pembayaran berhasil diperbaiki!"
+    );
+
+}
+
+
+/* =====================================================
+   HITUNG ULANG TEMPO
+===================================================== */
+
+function hitungUlangTempo(
+    anggotaId
+){
+
+    let a =
+        cariAnggota(
+            anggotaId
+        );
+
+    if(!a)
+        return;
+
+    let data =
+        transaksi
+        .filter(
+            t =>
+                t.sumber ===
+                "kas_harian"
+                &&
+                t.anggotaId ==
+                anggotaId
+        )
+        .sort(
+            (x,y)=>
+                x.id-y.id
+        );
+
+    if(!data.length){
+
+        a.tanggalTempo =
+            tanggalISO(
+                tanggalHariIni()
+            );
+
+        return;
+    }
+
+    let tempo =
+        new Date(
+            data[0].tanggal+
+            "T00:00:00"
+        );
+
+    tempo.setDate(
+        tempo.getDate()
+        +
+        Number(
+            data[0].jumlahHari
+        )
+    );
+
+    for(
+        let i=1;
+        i<data.length;
+        i++
+    ){
+
+        let berikutnya =
+            new Date(
+                data[i].tanggal+
+                "T00:00:00"
+            );
+
+        if(
+            berikutnya >
+            tempo
+        ){
+
+            tempo =
+                berikutnya;
+
+        }
+
+        tempo.setDate(
+            tempo.getDate()
+            +
+            Number(
+                data[i].jumlahHari
+            )
+        );
+
+    }
+
+    a.tanggalTempo =
+        tanggalISO(
+            tempo
+        );
+
+}
+
+
+/* =====================================================
+   HAPUS PEMBAYARAN
+===================================================== */
+
+function hapusPembayaran(id){
+
+    let t =
+        transaksi.find(
+            x =>
+                x.id == id
+        );
+
+    if(!t)
+        return;
+
+    let yakin =
+        confirm(
+            "Hapus pembayaran?\n\n"+
+            t.nama+
+            "\n"+
+            formatRupiah(
+                t.nominal
+            )+
+            "\n\n"+
+            "⚠️ Jika dihapus, transaksi kas masuk juga akan berkurang."
+        );
+
+    if(!yakin)
+        return;
+
+    let anggotaId =
+        t.anggotaId;
+
+    transaksi =
+        transaksi.filter(
+            x =>
+                x.id != id
+        );
+
+    hitungUlangTempo(
+        anggotaId
+    );
+
+    simpanData();
+
+    refreshSemua();
+
+    bukaDetail(
+        anggotaId
+    );
+
+}
+
+
+/* =====================================================
+   KAS MASUK MANUAL
+===================================================== */
+
+function kasMasuk(){
+
+    let text =
+        document.getElementById(
+            "nominalMasuk"
+        ).value;
+
+    let nominal =
+        Number(
+            text.replace(/\./g,"")
+        );
+
+    let ket =
+        document.getElementById(
+            "keteranganMasuk"
+        ).value.trim();
+
+    if(!nominal){
+
+        alert(
+            "Masukkan nominal!"
+        );
+
+        return;
+    }
+
+    if(!ket){
+
+        alert(
+            "Masukkan keterangan!"
+        );
+
+        return;
+    }
+
+    transaksi.push({
+
+        id:Date.now(),
+
+        jenis:"masuk",
+
+        sumber:"manual",
+
+        nominal:nominal,
+
+        tanggal:
+            tanggalISO(
+                tanggalHariIni()
+            ),
+
+        keterangan:ket
+
+    });
+
+    simpanData();
+
+    document.getElementById(
+        "nominalMasuk"
+    ).value="";
+
+    document.getElementById(
+        "keteranganMasuk"
+    ).value="";
+
+    refreshSemua();
+
+    alert(
+        "Kas masuk berhasil!"
+    );
+
+}
+
+
+/* =====================================================
+   PENGELUARAN
+===================================================== */
+
+function kasKeluar(){
+
+    let text =
+        document.getElementById(
+            "nominalKeluar"
+        ).value;
+
+    let nominal =
+        Number(
+            text.replace(/\./g,"")
+        );
+
+    let ket =
+        document.getElementById(
+            "keteranganKeluar"
+        ).value.trim();
+
+    if(!nominal){
+
+        alert(
+            "Masukkan nominal!"
+        );
+
+        return;
+    }
+
+    if(!ket){
+
+        alert(
+            "Masukkan keterangan!"
+        );
+
+        return;
+    }
+
+    if(
+        nominal >
+        hitungSaldo()
+    ){
+
+        alert(
+            "Saldo kas tidak mencukupi!"
+        );
+
+        return;
+    }
+
+    transaksi.push({
+
+        id:Date.now(),
+
+        jenis:"keluar",
+
+        sumber:"manual",
+
+        nominal:nominal,
+
+        tanggal:
+            tanggalISO(
+                tanggalHariIni()
+            ),
+
+        keterangan:ket
+
+    });
+
+    simpanData();
+
+    document.getElementById(
+        "nominalKeluar"
+    ).value="";
+
+    document.getElementById(
+        "keteranganKeluar"
+    ).value="";
+
+    refreshSemua();
+
+    alert(
+        "Pengeluaran berhasil!"
+    );
+
+}
+
+
+/* =====================================================
+   HITUNG SALDO
+===================================================== */
+
+function hitungSaldo(){
+
+    let masuk =
+        transaksi
+        .filter(
+            t =>
+                t.jenis ===
+                "masuk"
+        )
+        .reduce(
+            (x,t)=>
+                x+
+                Number(
+                    t.nominal
+                ),
+            0
+        );
+
+    let keluar =
+        transaksi
+        .filter(
+            t =>
+                t.jenis ===
+                "keluar"
+        )
+        .reduce(
+            (x,t)=>
+                x+
+                Number(
+                    t.nominal
+                ),
+            0
+        );
+
+    return masuk-keluar;
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function updateDashboard(){
+
+    let masuk =
+        transaksi
+        .filter(
+            t =>
+                t.jenis ===
+                "masuk"
+        )
+        .reduce(
+            (x,t)=>
+                x+
+                Number(
+                    t.nominal
+                ),
+            0
+        );
+
+    let keluar =
+        transaksi
+        .filter(
+            t =>
+                t.jenis ===
+                "keluar"
+        )
+        .reduce(
+            (x,t)=>
+                x+
+                Number(
+                    t.nominal
+                ),
+            0
+        );
+
+    document.getElementById(
+        "saldo"
+    ).textContent =
+        formatRupiah(
+            masuk-keluar
+        );
+
+    document.getElementById(
+        "totalMasuk"
+    ).textContent =
+        formatRupiah(
+            masuk
+        );
+
+    document.getElementById(
+        "totalKeluar"
+    ).textContent =
+        formatRupiah(
+            keluar
+        );
+
+    document.getElementById(
+        "jumlahAnggota"
+    ).textContent =
+        anggota.length;
+
+    document.getElementById(
+        "totalAnggotaText"
+    ).textContent =
+        anggota.length;
+
+}
+
+
+/* =====================================================
+   RIWAYAT
+===================================================== */
+
+function tampilkanRiwayat(){
+
+    let box =
+        document.getElementById(
+            "semuaRiwayat"
+        );
+
+    box.innerHTML="";
+
+    if(!transaksi.length){
+
+        box.innerHTML =
+            `<div class="empty">
+                Belum ada transaksi
+            </div>`;
+
+        return;
+    }
+
+    [...transaksi]
+    .reverse()
+    .forEach(t=>{
+
+        let masuk =
+            t.jenis === "masuk";
+
+        box.innerHTML += `
+
+        <div class="riwayat-item">
+
+            <b>
+                ${escapeHTML(
+                    t.nama ||
+                    (
+                        masuk
+                        ?
+                        "Kas Masuk"
+                        :
+                        "Pengeluaran"
+                    )
+                )}
+            </b>
+
+            <br>
+
+            <small>
+                ${formatTanggal(
+                    t.tanggal
+                )}
+            </small>
+
+            <br>
+
+            <span
+                class="${
+                    masuk
+                    ?
+                    "masuk"
+                    :
+                    "keluar"
+                }">
+
+                <b>
+
+                    ${
+                        masuk
+                        ?
+                        "+"
+                        :
+                        "-"
+                    }
+
+                    ${formatRupiah(
+                        t.nominal
+                    )}
+
+                </b>
+
+            </span>
+
+            <br>
+
+            <small>
+                ${escapeHTML(
+                    t.keterangan ||
+                    "-"
+                )}
+            </small>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   LAPORAN
+===================================================== */
+
+function dataLaporan(){
+
+    let kasAnggota =
+        transaksi
+        .filter(
+            t =>
+                t.sumber ===
+                "kas_harian"
+        )
+        .reduce(
+            (x,t)=>
+                x+
+                Number(
+                    t.nominal
+                ),
+            0
+        );
+
+    let kasMasuk =
+        transaksi
+        .filter(
+            t =>
+                t.sumber ===
+                "manual"
+                &&
+                t.jenis ===
+                "masuk"
+        )
+        .reduce(
+            (x,t)=>
+                x+
+                Number(
+                    t.nominal
+                ),
+            0
+        );
+
+    let keluar =
+        transaksi
+        .filter(
+            t =>
+                t.jenis ===
+                "keluar"
+        )
+        .reduce(
+            (x,t)=>
+                x+
+                Number(
+                    t.nominal
+                ),
+            0
+        );
+
+    return {
+
+        kasAnggota,
+        kasMasuk,
+        keluar,
+
+        saldo:
+            kasAnggota+
+            kasMasuk-
+            keluar
+
+    };
+
+}
+
+
+function updateLaporan(){
+
+    let d =
+        dataLaporan();
+
+    document.getElementById(
+        "laporanAnggota"
+    ).textContent =
+        formatRupiah(
+            d.kasAnggota
+        );
+
+    document.getElementById(
+        "laporanMasuk"
+    ).textContent =
+        formatRupiah(
+            d.kasMasuk
+        );
+
+    document.getElementById(
+        "laporanKeluar"
+    ).textContent =
+        formatRupiah(
+            d.keluar
+        );
+
+    document.getElementById(
+        "laporanSaldo"
+    ).textContent =
+        formatRupiah(
+            d.saldo
+        );
+
+}
+
+
+/* =====================================================
+   BAGIKAN ANGGOTA
+===================================================== */
+
+function bagikanAnggota(){
+
+    let teks =
+`━━━━━━━━━━━━━━━━━━━━
+📋 DAFTAR ANGGOTA KAS
+━━━━━━━━━━━━━━━━━━━━
+
+`;
+
+    anggota.forEach(
+        (a,index)=>{
+
+            let hari =
+                hitungSelisihHari(
+                    a.tanggalTempo
+                );
+
+            let icon =
+                hari>0
+                ?
+                "🟢"
+                :
+                hari===0
+                ?
+                "🟡"
+                :
+                "🔴";
+
+            let nomor =
+                String(index+1)
+                .padStart(2,"0");
+
+            teks +=
+                nomor+
+                ". "+
+                icon+
+                " "+
+                a.nama+
+                " / "+
+                hari+
+                " hari / "+
+                formatTanggal(
+                    a.tanggalTempo
+                )+
+                "\n";
+
+        }
+    );
+
+    teks +=
+`
+━━━━━━━━━━━━━━━━━━━━
+👥 TOTAL ANGGOTA: ${anggota.length}
+`;
+
+    shareText(
+        "Daftar Anggota Kas",
+        teks
+    );
+
+}
+
+
+/* =====================================================
+   BAGIKAN LAPORAN
+===================================================== */
+
+function bagikanLaporan(){
+
+    let d =
+        dataLaporan();
+
+    let tanggal =
+        formatTanggal(
+            tanggalISO(
+                tanggalHariIni()
+            )
+        );
+
+    let teks =
+`━━━━━━━━━━━━━━━━━━━━
+📊 LAPORAN KAS
+${tanggal}
+━━━━━━━━━━━━━━━━━━━━
+
+👥 Total Anggota
+${anggota.length} Orang
+
+💰 Kas Anggota
+${formatRupiah(
+    d.kasAnggota
+)}
+
+🟢 Kas Masuk
+${formatRupiah(
+    d.kasMasuk
+)}
+
+🔴 Pengeluaran
+${formatRupiah(
+    d.keluar
+)}
+
+━━━━━━━━━━━━━━━━━━━━
+💵 SALDO TERBARU
+${formatRupiah(
+    d.saldo
+)}
+━━━━━━━━━━━━━━━━━━━━`;
+
+    shareText(
+        "Laporan Kas",
+        teks
+    );
+
+}
+
+
+/* =====================================================
+   SHARE
+===================================================== */
+
+function shareText(
+    title,
+    text
+){
+
+    if(
+        navigator.share
+    ){
+
+        navigator.share({
+
+            title:title,
+
+            text:text
+
+        }).catch(
+            ()=>{}
+        );
+
+    }else{
+
+        navigator
+        .clipboard
+        .writeText(text)
+        .then(
+            ()=>{
+                alert(
+                    "Berhasil disalin."
+                );
+            }
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+function bukaMenu(
+    id,
+    tombol
+){
+
+    document
+    .querySelectorAll(
+        ".menu button"
+    )
+    .forEach(
+        b =>
+            b.classList.remove(
+                "active"
+            )
+    );
+
+    tombol.classList.add(
+        "active"
+    );
+
+    bukaSection(id);
+
+}
+
+
+function bukaSection(id){
+
+    document
+    .querySelectorAll(
+        ".section"
+    )
+    .forEach(
+        s =>
+            s.classList.remove(
+                "active"
+            )
+    );
+
+    document
+    .getElementById(id)
+    .classList.add(
+        "active"
+    );
+
+}
+
+
+function kembaliAnggota(){
+
+    bukaSection(
+        "anggota"
+    );
+
+}
+
+
+function kembaliDetail(){
+
+    bukaDetail(
+        anggotaDetailAktif
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   REFRESH
+===================================================== */
+
+function refreshSemua(){
+
+    tampilkanAnggota();
+
+    updateSelect();
+
+    tampilkanRiwayat();
+
+    updateDashboard();
+
+    updateLaporan();
+
+}
+
+
+/* =====================================================
+   MULAI
+===================================================== */
+
+refreshSemua();
+
+
+/*
+   Update jumlah hari otomatis
+   setiap 1 menit.
+*/
+
+setInterval(
+    function(){
+
+        tampilkanAnggota();
+
+        if(
+            anggotaDetailAktif
+            &&
+            document
+            .getElementById(
+                "detail"
+            )
+            .classList.contains(
+                "active"
+            )
+        ){
+
+            bukaDetail(
+                anggotaDetailAktif
+            );
+
+        }
+
+    },
+    60000
+);
+
+</script>
+
+</body>
+</html>
